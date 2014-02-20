@@ -1,0 +1,37 @@
+.flip__card {
+  display: none;
+}
+
+.flip__card--is-open {
+  display: block;
+}
+
+@media only screen {
+  .flip {
+    position: relative;
+    @include perspective(1000px);
+  }
+
+  .flip__card {
+    display: block;
+    @include transition-property(transform);
+    @include transition-duration(0.8s);
+    @include backface-visibility(hidden);
+    @include transform-style(preserve-3d);
+  }
+
+  .flip__card--front {
+    @include rotateX(180deg);
+  }
+
+  .flip__card--back {
+    @include rotateX(-180deg);
+    position: absolute;
+    width: 100%;
+    top: 0; left: 0;
+  }
+
+  .flip__card--is-open {
+    @include rotateX(0deg);
+  }
+}

@@ -1,0 +1,25 @@
+.landing-pitch {
+  color: $light-blue;
+  font-size: 20px; font-size: rem(20);
+  line-height: 30px; line-height: rem(30);
+
+  background: url('/images/teevyhomebg.png');
+}
+
+.landing-pitch__logo {
+  display: block;
+  margin: 0 auto 30px auto;
+  margin-bottom: rem(30);
+}
+
+.landing-pitch__heading {
+  color: $light;
+  margin-bottom: 10px;
+  margin-bottom: rem(10);
+}
+
+.landing-pitch__slogan {
+  @include breakpoint($bp-one-in-a-row) {
+    display: none;
+  }
+}

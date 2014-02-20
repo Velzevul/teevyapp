@@ -1,0 +1,126 @@
+body {
+text-align: center;
+font-family: 'Open Sans', sans-serif;
+color: #fff;
+background: url(bg.png) center no-repeat; 
+background-color:#292d2e;
+}
+
+h1 {
+	font-size: 28px;
+	font-weight: 700;
+}
+
+p {
+	font-size: 20px;
+	font-weight: 300;
+	color: #a7a8a8;
+	margin-top: -16px;
+}
+
+#teevy
+{
+	height: 400px;
+	width: 800px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+
+input.email {
+width: 300px;
+padding: 12px;
+padding-left: 12px;
+font-size: 16px;
+font-weight: 300;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+border: none;
+float: left;
+}
+
+
+input.button {
+color: #fff;
+font-size: 16px;
+font-weight: 300;
+width: 120px;
+padding: 12px;
+background-color: #54e9d2;
+border: none;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+float: left;
+margin-left: 20px;
+}
+
+input.button:hover {
+ background-color: #1eaf99;
+
+}
+
+
+}
+.mc-field-group
+{
+	text-align: center;
+}
+
+
+#mc_embed_signup {
+	width: 800px;
+	font-size: 22px;
+	display: inline;
+
+}
+
+#mc-embedded-subscribe-form { 
+	padding-left: 160px;
+padding-top: 20px;}
+
+
+#mc_embed_signup input {
+	border: none;
+}
+
+
+input-placeholder {
+ color: #ddd;
+ font-weight: 300;
+ padding-left: 4px;
+}
+
+::-webkit-input-placeholder {
+ color: #ddd;
+ padding-left: 4px;
+}
+ 
+:-moz-placeholder { /* Firefox old */
+ color: #ddd;
+ padding-left: 4px;
+}
+ 
+::-moz-placeholder { /* Firefox new */
+ color: #ddd;
+ padding-left: 4px;
+}
+ 
+:-ms-input-placeholder {
+ color: #ddd;
+ padding-left: 4px;
+}
+
+
+.twitter{
+	background:url(http://www.yassinebentaieb.com/wp-content/themes/yassinebentaieb/images/twbird.png) left center no-repeat;
+	padding-left:24px;
+	text-decoration: none;
+	color:#00aced;
+	font-size:14px;
+	font-weight:300;
+}
+.twitter:hover{
+	background:url(http://www.yassinebentaieb.com/wp-content/themes/yassinebentaieb/images/twbirdhover.png) left center no-repeat;
+	color:#3d4e59;

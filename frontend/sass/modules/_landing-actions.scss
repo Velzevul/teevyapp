@@ -1,0 +1,30 @@
+.landing-actions {
+  margin: 30px 0 15px 0;
+  font-size: rem(14);
+}
+
+.landing-actions__button {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 8px; margin: 0 rem(8);
+
+  padding: 10px 30px;
+  padding: rem(10) rem(30);
+
+  color: $green;
+  border: 2px solid #009A83;
+  border-radius: 4px;
+}
+  .landing-actions__button--white {
+    @extend .landing-actions__button;
+    color: white;
+    border-color: $light-blue;
+  }
+
+.twitter {
+  font-size: 14px; font-size: rem(14);
+  padding-left: 22px; padding-left: rem(22);
+  text-decoration: none;
+  color: #00aced;
+  background: url(http://www.yassinebentaieb.com/wp-content/themes/yassinebentaieb/images/twbird.png) left center no-repeat;
+}

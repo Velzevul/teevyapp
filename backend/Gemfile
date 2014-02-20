@@ -1,0 +1,24 @@
+source 'https://rubygems.org'
+ruby '2.0.0'
+
+gem 'rails', '4.0.2'
+gem 'turbolinks'
+gem 'jbuilder', '~> 1.2'
+gem 'bcrypt-ruby', '~> 3.1.2'
+
+gem 'authlogic'
+gem 'therubyracer', platforms: :ruby
+gem 'unicorn'
+
+group :test do
+  gem 'sqlite3'
+end
+
+group :development do
+  gem 'pg'
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
