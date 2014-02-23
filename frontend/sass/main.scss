@@ -35,8 +35,8 @@
 // (SMACSS) Styles for modules
 @import "modules/buttons";
 @import "modules/logo";
-@import "modules/landing-actions";
 @import "modules/landing-pitch";
+@import "modules/landing-image";
 @import "modules/footer";
 @import "modules/flipper";
 @import "modules/modal";
@@ -50,9 +50,13 @@
 @import "modules/thumb";
 @import "modules/select-list";
 @import "modules/message";
+@import "modules/menu-guest";
 
 // (SMACSS) Global state styles.
 //          Module-specific styles are inside module file
 @import "states";
 
 @import "shame";
+
+// vendor & others
+@import "vendor/animate"

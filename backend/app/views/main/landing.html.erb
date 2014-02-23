@@ -8,30 +8,32 @@
     <%= csrf_meta_tags %>
   </head>
   <body ng-app="teevyLanding" ng-controller="appCtrl as ac">
-    <div class="copyright copyright--top">
-      This product uses the TMDb API but is not endorsed or certified by TMDb.
+    <div class="l-row--absolute l-row--medium">
+      <div class="l-wrap">
+        <div class="l-justified">
+          <div class="justified__item">
+            <a class="logo" href="index.html"></a>
+          </div>
+
+          <div class="justified__item">
+            <div class="menu-guest">
+              <button class="menu-guest__button button" ng-click="ac.changeModalType('signup')">Sign up</button> or <button href="" class="menu-guest__button" ng-click="ac.changeModalType('login')">Log in</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="l-row--fullheight landing-pitch">
       <div class="bobber__wrap--center">
         <div class="bobber--middle">
-          <img src="/images/logo_homepage.png" alt="" class="landing-pitch__logo">
-
-          <h2 class="landing-pitch__heading">Keep track of your shows in a beautiful way.</h2>
+          <h1 class="landing-pitch__heading">Keep track of your shows in a beautiful way.</h1>
           <div class="landing-pitch__slogan">Never forget where you are and always know when a next episode is airing.</div>
-
-          <div class="landing-actions">
-            <button class="landing-actions__button" ng-click="ac.changeModalType('signup')">Sign up</button> or <button href="" class="landing-actions__button--white" ng-click="ac.changeModalType('login')">Log in</button>
-          </div>
-
-          <a href="http://www.twitter.com/teevyco" target="_blank" class="twitter">Follow @TeevyCo</a>
         </div>
       </div>
     </div>
 
-    <div class="copyright copyright--bottom">
-      © Teevy 2014, Created by @<a class="copyright__link" href="https://twitter.com/yassinebentaieb">yassinebentaieb</a> & @<a class="copyright__link" href="https://twitter.com/vdziubak">vdziubak</a>
-    </div>
+    <div class="landing-image animated fadeInUp"></div>
 
     <div ng-if="ac.modalType" ng-cloak>
       <div class="l-row--overlay"></div>

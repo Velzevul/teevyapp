@@ -3,13 +3,10 @@
   font-size: 20px; font-size: rem(20);
   line-height: 30px; line-height: rem(30);
 
-  background: url('/images/teevyhomebg.png');
-}
-
-.landing-pitch__logo {
-  display: block;
-  margin: 0 auto 30px auto;
-  margin-bottom: rem(30);
+  background: url('/images/landing-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: cover;
 }
 
 .landing-pitch__heading {
@@ -19,7 +16,6 @@
 }
 
 .landing-pitch__slogan {
-  @include breakpoint($bp-one-in-a-row) {
-    display: none;
-  }
+  padding-bottom: 250px;
+  padding-bottom: rem(250);
 }
