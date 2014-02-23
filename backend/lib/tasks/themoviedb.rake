@@ -11,9 +11,10 @@ namespace :themoviedb do
         show_data = JSON.load( open("http://api.themoviedb.org/3/tv/#{show_id}?api_key=#{API_KEY}") )
         @show = Show.create(  :title => show_data["name"],
                               :api_id => show_id,
+                              :in_production => show_data["in_production"],
                               :image_url => "http://image.tmdb.org/t/p/w500/#{show_data['poster_path']}",
                               :show_started => show_data["first_air_date"],
-                              :show_ended => show_data["in_production"] ? "still airing" : show_data["last_air_date"] )
+                              :show_ended => show_data["last_air_date"] )
 
         index = 0
 

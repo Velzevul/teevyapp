@@ -6,6 +6,7 @@ class CreateShow < ActiveRecord::Migration
       t.string  :image_url
       t.string  :show_started
       t.string  :show_ended
+      t.boolean :in_production
     end
   end
 end

@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140201181934) do
     t.string  "image_url"
     t.string  "show_started"
     t.string  "show_ended"
+    t.boolean "in_production"
   end
 
   create_table "subscriptions", force: true do |t|
