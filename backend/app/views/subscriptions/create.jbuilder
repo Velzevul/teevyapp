@@ -4,6 +4,7 @@ json.show do
   json.id @subscription.show.id
   json.title @subscription.show.title
   json.image_url @subscription.show.image_url
+  json.in_production @subscription.show.in_production
   json.show_started @subscription.show.show_started
   json.show_ended @subscription.show.show_ended
 end

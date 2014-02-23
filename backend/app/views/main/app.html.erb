@@ -108,12 +108,22 @@
               <h3 class="island">{{subscription.show.title}}</h3>
             </div>
 
-            <div class="island tile-ui">
+            <div ng-if="!subscription.watched_all" class="island tile-ui">
               <div class="tile-ui__emph">Next to see: S{{subscription.next_unseen.season_number}} E{{subscription.next_unseen.episode_number}}</div>
 
               <h4 class="tile-ui__heading">{{subscription.next_unseen.title}}</h4>
 
               <button ng-disabled="sawLastAired" class="button tile-ui__button" ng-click="setEpisode('next')"><span ng-if="!sawLastAired">I watched this</span><span ng-if="sawLastAired">Airing {{subscription.next_unseen.aired_at | date:'MMM Do'}}</span></button>
+            </div>
+
+            <div ng-if="subscription.watched_all && subscription.show.in_production" class="island tile-ui">
+              <h4 class="tile-ui__heading">You watched all aired episodes</h4>
+
+              <button disabled="disabled" class="button tile-ui__button">No new air date</button>
+            </div>
+
+            <div ng-if="subscription.watched_all && !subscription.show.in_production" class="island tile-ui">
+              <h4 class="tile-ui__heading">You have finished watching this show</h4>
             </div>
           </div>
         </div>

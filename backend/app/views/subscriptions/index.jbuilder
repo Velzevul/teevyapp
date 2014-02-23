@@ -1,9 +1,12 @@
 json.array! @subscriptions do |s|
   json.id s.id
+  json.watched_all s.watched_all
+
   json.show do
     json.id s.show.id
     json.title s.show.title
     json.image_url s.show.image_url
+    json.in_production s.show.in_production
     json.show_started s.show.show_started
     json.show_ended s.show.show_ended
   end

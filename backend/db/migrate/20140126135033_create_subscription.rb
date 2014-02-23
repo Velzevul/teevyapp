@@ -4,6 +4,7 @@ class CreateSubscription < ActiveRecord::Migration
       t.references :user,    index: true
       t.references :show,    index: true
       t.references :episode, index: true
+      t.boolean    :watched_all
     end
   end
 end

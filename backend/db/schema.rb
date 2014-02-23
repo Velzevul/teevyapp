@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140201181934) do
     t.integer "user_id"
     t.integer "show_id"
     t.integer "episode_id"
+    t.boolean "watched_all"
   end
 
   add_index "subscriptions", ["episode_id"], name: "index_subscriptions_on_episode_id"

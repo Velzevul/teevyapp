@@ -648,7 +648,7 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
             .then(function(response){
               scope.pending = false;
               scope.config = false;
-              scope.subscription.next_unseen = response;
+              scope.subscription = response;
               scope.sawLastAired = !scope.isAired(scope.subscription.next_unseen);
               // half of animation duration
               $timeout(function(){

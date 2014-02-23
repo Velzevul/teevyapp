@@ -32,11 +32,11 @@
 .tile-ui__emph {
   text-transform: uppercase;
   font-weight: 700;
+  margin-bottom: 10px; margin-bottom: rem(10);
 }
 
 .tile-ui__heading {
   color: $dark-blue;
-  margin-top: 10px; margin-top: rem(10);
   margin-bottom: 15px; margin-bottom: rem(15);
 }
 

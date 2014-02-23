@@ -7,13 +7,15 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.new( :user_id => current_user.id,
-                                      :show_id => params[:subscription][:show_id]);
+                                      :show_id => params[:subscription][:show_id],
+                                      :watched_all => false )
 
     render :nothing => true, :status => 401 unless @subscription.save
   end
 
   def update
     @subscription = Subscription.find(params[:id])
+    @subscription.watched_all = false
     if params[:option] == 'first'
       @subscription.episode_id = @subscription.show.episodes.aired.first.id
     elsif params[:option] == 'last'
@@ -21,7 +23,11 @@ class SubscriptionsController < ApplicationController
     elsif params[:option] == 'next'
       all_episodes = @subscription.show.episodes
       next_episode_index = @subscription.episode.episode_index + 1
-      next_episode = all_episodes.find_by_episode_index( next_episode_index ) || @subscription.episode
+      next_episode = all_episodes.find_by_episode_index( next_episode_index )
+      unless next_episode
+        @subscription.watched_all = true
+        next_episode = @subscription.episode
+      end
       @subscription.episode_id = next_episode.id
     elsif params[:option] == 'custom'
       @subscription.episode_id = params[:episode_id]
