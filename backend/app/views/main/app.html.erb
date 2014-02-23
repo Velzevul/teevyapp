@@ -7,68 +7,81 @@
     <link rel="stylesheet" href="/my_assets/styles.min.css">
     <%= csrf_meta_tags %>
   </head>
-  <body ng-app="teevyApp">
-    <div class="l-row--header" ng-controller="userCtrl">
-      <div class="l-wrap--responsive l-justified">
-        <div class="justified__item">
-          <a class="logo text-is-hidden" href="/">homepage</a>
-        </div>
+  <body ng-app="teevyApp" class="l-page">
+    <div class="page__content">
+      <div class="l-row--header" ng-controller="userCtrl">
+        <div class="l-wrap--responsive l-justified">
+          <div class="justified__item">
+            <a class="logo text-is-hidden" href="/">homepage</a>
+          </div>
 
-        <div dropdown open="showMenu" class="justified__item user-menu">
-          <a class="feedback__link" href="mailto:contact@teevy.co?Subject=Feedback">Have feedback?</a>
+          <div dropdown open="showMenu" class="justified__item user-menu">
+            <a class="feedback__link" href="mailto:contact@teevy.co?Subject=Feedback">Have feedback?</a>
 
-          <button ng-click="showMenu = !showMenu" class="user-menu__icon icon icon--cog"></button>
+            <button ng-click="showMenu = !showMenu" class="user-menu__icon icon icon--cog"></button>
 
-          <div class="island user-menu__dropdown dropdown">
-            <img class="user-menu__avatar" ng-src={{user.avatar_url}}>
-            <h3 class="user-menu__username">{{user.login}}</h3>
-            <button class="user-menu__button button--grey" ng-click="logout()">Log out</button>
+            <div class="island user-menu__dropdown dropdown">
+              <img class="user-menu__avatar" ng-src={{user.avatar_url}}>
+              <h3 class="user-menu__username">{{user.login}}</h3>
+              <button class="user-menu__button button--grey" ng-click="logout()">Log out</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="l-row--high" ng-controller="appCtrl">
-      <div class="l-wrap--responsive l-justified">
-        <div class="justified__item--responsive">
-          <div class="navigation">
-            <a href="#/dashboard" class="navigation__item ng-class: isActive('dashboard') "><h2>Dashboard</h2></a>
-            <a href="#/explore" class="navigation__item ng-class: isActive('explore')"><h2>Explore</h2></a>
+      <div class="l-row--high" ng-controller="appCtrl">
+        <div class="l-wrap--responsive l-justified">
+          <div class="justified__item--responsive">
+            <div class="navigation">
+              <a href="#/dashboard" class="navigation__item ng-class: isActive('dashboard') "><h2>Dashboard</h2></a>
+              <a href="#/explore" class="navigation__item ng-class: isActive('explore')"><h2>Explore</h2></a>
+            </div>
           </div>
-        </div>
 
-        <div class="justified__item--responsive">
-          <div dropdown open="showSearchResults" class="search-form icon icon--search">
-            <input ng-model="search" type="text" class="search-form__input" placeholder="Search for a show">
+          <div class="justified__item--responsive">
+            <div dropdown open="showSearchResults" class="search-form icon icon--search">
+              <input ng-model="search" type="text" class="search-form__input" placeholder="Search for a show">
 
-            <div class="search__dropdown dropdown">
-              <div ng-repeat="show in filteredShows" class="flag island--small show-entry">
-                <div class="flag__sidebar">
-                  <img ng-src="{{show.image_url}}" alt="{{show.title}}" class="thumb">
+              <div class="search__dropdown dropdown">
+                <div ng-repeat="show in filteredShows" class="flag island--small show-entry">
+                  <div class="flag__sidebar">
+                    <img ng-src="{{show.image_url}}" alt="{{show.title}}" class="thumb">
+                  </div>
+                  <div class="flag__content">
+                      <h4>{{show.title}}</h4>
+                      <p class="show-entry__emph">{{show.show_started | date:'YYYY'}} - <span ng-if="show.in_production">Still airing</span><span ng-if="!show.in_production">{{show.show_ended | date:'YYYY'}}</span></p>
+                  </div>
+                  <div class="flag__sidebar--right">
+                    <button ng-if="show.subscription_id == null" class="button" ng-disabled="show.pending" ng-click="subscribe(show)">Add</button>
+                    <button ng-if="show.subscription_id != null" class="button--dark" ng-disabled="show.pending" ng-click="unsubscribe(show)">Remove</button>
+                  </div>
                 </div>
-                <div class="flag__content">
-                    <h4>{{show.title}}</h4>
-                    <p class="show-entry__emph">{{show.show_started | date:'YYYY'}} - <span ng-if="show.in_production">Still airing</span><span ng-if="!show.in_production">{{show.show_ended | date:'YYYY'}}</span></p>
-                </div>
-                <div class="flag__sidebar--right">
-                  <button ng-if="show.subscription_id == null" class="button" ng-disabled="show.pending" ng-click="subscribe(show)">Add</button>
-                  <button ng-if="show.subscription_id != null" class="button--dark" ng-disabled="show.pending" ng-click="unsubscribe(show)">Remove</button>
-                </div>
-              </div>
-              <div ng-hide="filteredShows" class="island">
-                <div class="search__empty">
-                  Sorry, couldn't find show '{{search}}' in our database.
+                <div ng-hide="filteredShows" class="island">
+                  <div class="search__empty">
+                    Sorry, couldn't find show '{{search}}' in our database.
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="l-row">
+        <div class="l-wrap--responsive">
+          <div ng-view></div>
+        </div>
+      </div>
     </div>
 
-    <div class="l-row">
-      <div class="l-wrap--responsive">
-        <div ng-view></div>
+    <div class="page__footer">
+      <div class="l-row footer">
+        <div class="l-wrap--responsive">
+          <div class="l-justified">
+            <div class="justified__item">© Teevy 2014. Created by <a class="footer__link" href="//twitter.com/yassinebentaieb">@yassinebentaieb</a> & <a class="footer__link" href="//twitter.com/vdziubak">@vdziubak</a></div>
+            <div class="justified__item">This product uses the TMDb API but is not endorsed or certified by TMDb</div>
+          </div>
+        </div>
       </div>
     </div>
 

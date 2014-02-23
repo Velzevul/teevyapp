@@ -30,13 +30,14 @@
 @import "layouts/wrap";
 @import "layouts/grid";
 @import "layouts/justified";
+@import "layouts/page";
 
 // (SMACSS) Styles for modules
 @import "modules/buttons";
 @import "modules/logo";
 @import "modules/landing-actions";
 @import "modules/landing-pitch";
-@import "modules/copyright";
+@import "modules/footer";
 @import "modules/flipper";
 @import "modules/modal";
 @import "modules/user-menu";
