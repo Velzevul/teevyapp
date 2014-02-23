@@ -47,7 +47,7 @@
                 </div>
                 <div class="flag__content">
                     <h4>{{show.title}}</h4>
-                    <p class="show-entry__emph">{{show.show_started | date:'YYYY'}} - {{show.show_ended | date:'YYYY'}}</p>
+                    <p class="show-entry__emph">{{show.show_started | date:'YYYY'}} - <span ng-if="show.in_production">Still airing</span><span ng-if="!show.in_production">{{show.show_ended | date:'YYYY'}}</span></p>
                 </div>
                 <div class="flag__sidebar--right">
                   <button ng-if="show.subscription_id == null" class="button" ng-disabled="show.pending" ng-click="subscribe(show)">Add</button>
