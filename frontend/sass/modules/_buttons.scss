@@ -12,8 +12,8 @@
   border-radius: 4px;
   background: $green;
 
-  @include transition-property(background-color, transform);
-  @include transition-duration(0.15s, 0.15s);
+  @include transition-property(background-color);
+  @include transition-duration(0.15s);
 
   &:hover {
     background: mix($green, white, 80%);

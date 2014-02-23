@@ -27,17 +27,22 @@
 .show-tile__option {
   position: absolute;
   z-index: 100;
+  opacity: 0;
 
   font-size: 16px; font-size: rem(16);
 
   color: $light-blue;
   text-decoration: none;
 
-  @include transition-property(color);
-  @include transition-duration(0.2s);
+  @include transition-property(color, opacity);
+  @include transition-duration(0.2s, 0.2s);
 
   &:hover {
     color: $dark-blue;
+  }
+
+  .show-tile:hover & {
+    opacity: 1;
   }
 }
   .show-tile__option--left {

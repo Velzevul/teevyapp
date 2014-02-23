@@ -35,10 +35,13 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
 
     $scope.subscribe = function(show){
       show.pending = true;
-      Subscription.create(show.id)
-        .then(function(response){
-          show.pending = false;
-          show.subscription_id = response.id;
+      Subscription.all() // make sure all subscriptions are loaded
+        .then(function(){
+          Subscription.create(show.id)
+            .then(function(response){
+              show.pending = false;
+              show.subscription_id = response.id;
+            });
         });
     }
 
@@ -78,10 +81,13 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
 
     $scope.subscribe = function(show){
       show.pending = true;
-      Subscription.create(show.id)
-        .then(function(response){
-          show.pending = false;
-          show.subscription_id = response.id;
+      Subscription.all() // make sure all subscriptions are loaded
+        .then(function(){
+          Subscription.create(show.id)
+            .then(function(response){
+              show.pending = false;
+              show.subscription_id = response.id;
+            });
         });
     };
 
@@ -89,7 +95,6 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
       show.pending = true;
       Subscription.delete(show.subscription_id)
         .then(function(){
-          console.log('from ctrl');
           show.pending = false;
           show.subscription_id = null;
           $scope.$apply();
@@ -124,14 +129,18 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
   }]);
 
   TeevyApp.factory('Show', ['$http', '$q', '$log', function($http, $q, $log){
-    var cache = [];
+    var cache = [],
+        id_index = {};
 
     return {
       all: function(){
         if ( cache.length === 0 ) {
           return $http.get('/shows')
             .then(function(response){
-              cache = response.data;
+              angular.forEach(response.data, function(show, index){
+                id_index[show.id] = index;
+                cache[index] = show;
+              });
               return cache;
             });
         } else {
@@ -139,24 +148,27 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
           deferred.resolve( cache );
           return deferred.promise;
         }
+      },
+      get: function(id){
+        return cache[ id_index[id] ];
       }
     }
   }]);
 
   TeevyApp.factory("Episode", ['$http', '$q', '$log', function($http, $q, $log){
-    var cache = [];
+    var cache = {};
 
     return {
       all: function(show_id){
-        if ( cache.length === 0 ) {
+        if ( !cache['show_' + show_id] ) {
           return $http.get('/shows/' + show_id + '/episodes/')
             .then(function(response){
-              cache = response.data;
-              return cache;
+              cache['show_' + show_id] = response.data;
+              return cache['show_' + show_id];
             });
         } else {
           var deferred = $q.defer();
-          deferred.resolve( cache );
+          deferred.resolve( cache['show_' + show_id] );
           return deferred.promise;
         }
       }
@@ -266,7 +278,7 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
     }
   }]);
 
-  TeevyApp.directive('subscriptionTile', ['$log', 'Subscription', 'Episode', function($log, Subscription, Episode){
+  TeevyApp.directive('subscriptionTile', ['$log', '$timeout', 'Show', 'Episode', 'Subscription', function($log, $timeout, Show, Episode, Subscription){
     return {
       restrict: 'E',
       templateUrl: 'subscription-tile.html',
@@ -274,9 +286,19 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
         subscription: '='
       },
       link: function(scope, element, attrs){
-        scope.episodeIsSet = (scope.subscription.next_unseen != null);
-        scope.settingsMode = false;
-        scope.manualMode = false;
+        scope.isAired = function(ep){
+          return ep && moment().format() > ep.aired_at;
+        };
+
+        scope.config = false;
+        scope.manual = false;
+        scope.initialized = true;
+        scope.sawLastAired = !scope.isAired(scope.subscription.next_unseen);
+
+        if (!scope.subscription.next_unseen) {
+          scope.config = true;
+          scope.initialized = false;
+        }
 
         scope.selectEpisode = function(episode){
           if ( scope.isAired(episode) ) scope.selected_episode = episode;
@@ -287,48 +309,45 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
           Subscription.update(scope.subscription.id, option, episode_id)
             .then(function(response){
               scope.pending = false;
-              scope.settingsMode = false;
+              scope.config = false;
               scope.subscription.next_unseen = response;
               scope.sawLastAired = !scope.isAired(scope.subscription.next_unseen);
+              // half of animation duration
+              $timeout(function(){
+                scope.initialized = true;
+              }, 400);
             });
         };
 
-        scope.turnSettingsModeOn = function(){
-          scope.manualMode = false;
+        scope.enterConfig = function(){
+          scope.manual = false;
+          scope.config = true;
+        };
+
+        scope.exitConfig = function(){
+          scope.config = false;
+        }
+
+        scope.enterManual = function(){
           Episode.all(scope.subscription.show.id)
             .then(function(response){
               scope.episodes = response;
               scope.selected_episode = response[0];
-              scope.settingsMode = true;
+              scope.manual = true;
             });
-        };
+        }
 
         scope.unsubscribe = function(){
+          var show = Show.get(scope.subscription.show.id);
+
           scope.pending = true;
           Subscription.delete(scope.subscription.id)
             .then(function(){
               scope.pending = false;
+              show.subscription_id = null;
               scope.$apply();
             })
         }
-
-        scope.turnManualModeOn = function(){
-          scope.manualMode = true;
-        };
-
-        scope.turnManualModeOff = function(){
-          scope.manualMode = false;
-        };
-
-        scope.turnSettingsModeOff = function(){
-          scope.settingsMode = false;
-        };
-
-        scope.isAired = function(ep){
-          return ep && moment().format() > ep.aired_at;
-        };
-
-        scope.sawLastAired = !scope.isAired(scope.subscription.next_unseen);
       }
     }
   }]);

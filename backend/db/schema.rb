@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140201181934) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "episodes", force: true do |t|
     t.integer  "episode_index"
     t.string   "title"
@@ -25,13 +22,14 @@ ActiveRecord::Schema.define(version: 20140201181934) do
     t.integer  "show_id"
   end
 
-  add_index "episodes", ["show_id"], name: "index_episodes_on_show_id", using: :btree
+  add_index "episodes", ["show_id"], name: "index_episodes_on_show_id"
 
   create_table "shows", force: true do |t|
-    t.string "title"
-    t.string "image_url"
-    t.string "show_started"
-    t.string "show_ended"
+    t.integer "api_id"
+    t.string  "title"
+    t.string  "image_url"
+    t.string  "show_started"
+    t.string  "show_ended"
   end
 
   create_table "subscriptions", force: true do |t|
@@ -40,9 +38,9 @@ ActiveRecord::Schema.define(version: 20140201181934) do
     t.integer "episode_id"
   end
 
-  add_index "subscriptions", ["episode_id"], name: "index_subscriptions_on_episode_id", using: :btree
-  add_index "subscriptions", ["show_id"], name: "index_subscriptions_on_show_id", using: :btree
-  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
+  add_index "subscriptions", ["episode_id"], name: "index_subscriptions_on_episode_id"
+  add_index "subscriptions", ["show_id"], name: "index_subscriptions_on_show_id"
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
 
   create_table "user_sessions", force: true do |t|
     t.string "username"
