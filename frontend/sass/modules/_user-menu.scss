@@ -3,6 +3,8 @@
 }
 
 .user-menu__icon {
+  display: inline-block;
+  vertical-align: middle;
   font-size: 20px; font-size: rem(20);
   color: $light-blue;
 }
