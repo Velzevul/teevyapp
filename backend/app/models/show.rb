@@ -1,5 +1,5 @@
 class Show < ActiveRecord::Base
-  validates :title, :image_url, :show_started, :show_ended, :presence => true
+  validates :title, :image_url, :presence => true
   validates :title, :uniqueness => true
 
   has_many :episodes, :dependent => :destroy
