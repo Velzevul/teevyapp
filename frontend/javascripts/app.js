@@ -218,6 +218,7 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
         })
           .then(function(response){
             cache[ id_index[id] ].next_unseen = response.data.next_unseen;
+            cache[ id_index[id] ].watched_all = response.data.watched_all;
             return response.data;
           }, function(){
             $log.error('Could not set next episode on server');
@@ -316,6 +317,7 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
             .then(function(response){
               scope.pending = false;
               scope.config = false;
+              console.log( scope.subscription.next_unseen );
               scope.sawLastAired = !scope.isAired(scope.subscription.next_unseen);
               // half of animation duration
               $timeout(function(){

@@ -15,10 +15,10 @@ group :test do
 end
 
 group :development do
-  gem 'pg'
+  gem 'sqlite3'
 end
 
 group :production do
-  gem 'pg'
+  gem 'mysql2'
   gem 'rails_12factor'
 end
