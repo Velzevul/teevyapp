@@ -10,6 +10,13 @@
   color: $light-blue;
   text-decoration: none;
 
+  @include transition-property(color);
+  @include transition-duration(0.2s);
+
+  &:hover {
+    color: mix($light-blue, $light);
+  }
+
   &.active {
     color: $light;
   }

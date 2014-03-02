@@ -29,9 +29,14 @@
   }
 }
 
-.tile-ui__emph {
+.tile-ui__subheading {
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.tile-ui__emph {
+  @extend .tile-ui__subheading;
+
   margin-bottom: 10px; margin-bottom: rem(10);
 }
 

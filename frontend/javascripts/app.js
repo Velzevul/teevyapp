@@ -150,7 +150,9 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
         }
       },
       get: function(id){
-        return cache[ id_index[id] ];
+        var deferred = $q.defer();
+        deferred.resolve( cache[ id_index[id] ] );
+        return deferred.promise;
       }
     }
   }]);
@@ -176,15 +178,17 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
   }]);
 
   TeevyApp.factory('Subscription', ['$http', '$q', '$log', 'Episode', function($http, $q, $log, Episode){
-    var cache = {};
+    var cache = [],
+        id_index = {};
 
     return {
       all: function(){
-        if ( angular.element.isEmptyObject(cache) ) {
+        if ( cache.length === 0 ) {
           return $http.get('/users/current/subscriptions')
             .then(function(response){
-              angular.forEach(response.data, function(item){
-                cache[item.id] = item;
+              angular.forEach(response.data, function(item, index){
+                id_index[item.id] = index;
+                cache[index] = item;
               });
               return cache;
             });
@@ -195,14 +199,14 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
         }
       },
       get: function(id){
-        if ( cache[id] ) {
+        if ( cache[ id_index[id] ] ) {
           var deferred = $q.defer();
-          deferred.resolve(cache[id]);
+          deferred.resolve(cache[ id_index[id] ]);
           return deferred.promise;
         } else {
           return api.all()
             .then(function(){
-              return cache[id];
+              return cache[ id_index[id] ];
             });
         }
       },
@@ -213,6 +217,7 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
           authenticity_token: token
         })
           .then(function(response){
+            cache[ id_index[id] ].next_unseen = response.data.next_unseen;
             return response.data;
           }, function(){
             $log.error('Could not set next episode on server');
@@ -226,8 +231,9 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
           authenticity_token: token
         })
           .then(function(response){
-            cache[response.data.id] = response.data;
-            return cache[response.data.id];
+            cache.push( response.data );
+            id_index[response.data.id] = cache.length - 1;
+            return cache[ id_index[response.data.id] ];
           });
       },
       delete: function(id){
@@ -239,7 +245,7 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
           }
         })
           .then(function(response){
-            delete cache[id];
+            cache.splice(id_index[id], 1);
             return response;
           }, function(a,b,c){
             $log.error('error while deletion: ', a, b, c);
@@ -310,7 +316,6 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
             .then(function(response){
               scope.pending = false;
               scope.config = false;
-              scope.subscription = response;
               scope.sawLastAired = !scope.isAired(scope.subscription.next_unseen);
               // half of animation duration
               $timeout(function(){
@@ -338,15 +343,18 @@ TeevyApp.config(['$routeProvider', function($routeProvider){
         }
 
         scope.unsubscribe = function(){
-          var show = Show.get(scope.subscription.show.id);
+          Show.get(scope.subscription.show.id)
+            .then(function(response){
+              var show = response;
 
-          scope.pending = true;
-          Subscription.delete(scope.subscription.id)
-            .then(function(){
-              scope.pending = false;
-              show.subscription_id = null;
-              scope.$apply();
-            })
+              scope.pending = true;
+              Subscription.delete(scope.subscription.id)
+                .then(function(){
+                  scope.pending = false;
+                  show.subscription_id = null;
+                  scope.$apply();
+                });
+            });
         }
       }
     }
