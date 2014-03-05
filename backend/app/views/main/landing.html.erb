@@ -44,14 +44,14 @@
             <div class="flip" modal="ac.modalType">
               <div class="flip__card flip__card--front ng-class: {'flip__card--is-open': ac.modalType == 'signup'}">
                 <div class="island modal">
-                  <h3 class="modal__heading">Sign up quickly</h3>
+                  <!-- <h3 class="modal__heading">Sign up quickly</h3>
                   <div>
                     <button class="modal__button button--twitter"><i class="icon icon--twitter"></i> With Twitter</button>
                     <button class="modal__button button--facebook"><i class="icon icon--facebook"></i> With Facebook</button>
-                  </div>
+                  </div> -->
 
                   <form ng-submit="ac.signUp()">
-                    <h3 class="modal__heading--lines">Or the old fashioned way</h3>
+                    <h3 class="modal__heading--lines">Create an account</h3>
 
                     <div>
                       <input ng-click="ac.resetErrors('login')" type="text" class="modal__input" placeholder="Username" title="Username field is required" required ng-model="ac.login">
@@ -75,14 +75,14 @@
 
               <div class="flip__card flip__card--back ng-class: {'flip__card--is-open': ac.modalType == 'login'}">
                 <div class="island modal">
-                  <h3 class="modal__heading">Log in quickly</h3>
+                  <!-- <h3 class="modal__heading">Log in quickly</h3>
                   <div>
                     <button class="modal__button button--twitter"><i class="icon icon--twitter"></i>With Twitter</button>
                     <button class="modal__button button--facebook"><i class="icon icon--facebook"></i>With Facebook</button>
-                  </div>
+                  </div> -->
 
                   <form ng-submit="ac.logIn()">
-                    <h3 class="modal__heading--lines">or with your account</h3>
+                    <h3 class="modal__heading--lines">Log in with our account</h3>
 
                     <div>
                       <input ng-click="ac.resetErrors('login')" type="text" class="modal__input" placeholder="Username or email" title="This field is required" required ng-model="ac.login">
