@@ -58,4 +58,12 @@
   color: #728791;
 
   background: url('/images/no-results.png') top center no-repeat;
+
+  a {
+    color: #728791;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }

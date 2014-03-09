@@ -7,7 +7,7 @@
   color: $light-blue;
   text-decoration: none;
 
-  border-bottom: 1px dashed rgba($light-blue, 0.2);
+  border-bottom: 1px solid rgba($light-blue, 0.2);
 
   @include transition-property(border-color);
   @include transition-duration(0.2s);

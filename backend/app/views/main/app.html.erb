@@ -5,6 +5,7 @@
     <title>Teevy.co</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <link rel="stylesheet" href="/my_assets/styles.min.css">
+    <link rel="shortcut icon" type="image/icon" href="/favicon.ico"/>
     <%= csrf_meta_tags %>
   </head>
   <body ng-app="teevyApp" class="l-page">
@@ -16,7 +17,7 @@
           </div>
 
           <div dropdown open="showMenu" class="justified__item user-menu">
-            <a class="feedback__link" href="mailto:teevy.co@gmail.com?Subject=Feedback">Have feedback?</a>
+            <a class="feedback__link" href="mailto:contact@teevy.co?Subject=Feedback" target="_blank">Have feedback?</a>
 
             <button ng-click="showMenu = !showMenu" class="user-menu__icon icon icon--cog"></button>
 
@@ -58,7 +59,7 @@
                 </div>
                 <div ng-hide="filteredShows" class="island">
                   <div class="search__empty">
-                    Sorry, couldn't find show '{{search}}' in our database.
+                    Sorry, couldn't find '{{search}}'.<br> <a href="mailto:contact@teevy.co?subject=Request%20Shows&body=Please,%20add%20show%20'{{search}}'!" target="_blank">Write us a request!</a>
                   </div>
                 </div>
               </div>
@@ -78,7 +79,7 @@
       <div class="l-row footer">
         <div class="l-wrap--responsive">
           <div class="l-justified">
-            <div class="justified__item">© Teevy 2014 <a class="footer__link" href="//twitter.com/yassinebentaieb">@yassinebentaieb</a>, <a class="footer__link" href="//twitter.com/vdziubak">@vdziubak</a>, <a class="footer__link" href="//twitter.com/@mark_dj">@mark_dj</a></div>
+            <div class="justified__item">© Teevy 2014; Follow <a class="footer__link" href="https://twitter.com/TeevyCo">@TeevyCo</a></div>
             <div class="justified__item">This product uses the TMDb API but is not endorsed or certified by TMDb</div>
           </div>
         </div>
@@ -114,7 +115,7 @@
       <div class="flip">
         <div class="flip__card flip__card--front ng-class:{'flip__card--is-open': !config}">
           <div class="show-tile">
-            <a href="" ng-click="enterConfig()" class="show-tile__option show-tile__option--right show-tile__option--light icon icon--cog"></a>
+            <a href="" ng-click="enterConfig()" class="show-tile__option show-tile__option--immersive show-tile__option--right show-tile__option--light icon icon--cog"></a>
 
             <img ng-src="{{subscription.show.image_url}}" alt="{{subscription.show.title}}">
 
