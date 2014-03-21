@@ -41,14 +41,14 @@ namespace :themoviedb do
     Show.all.each do |show|
       puts "-------"
       puts "   processing show #{show.title}"
-      show_data = JSON.load( open("http://api.themoviedb.org/3/tv/#{show.id}?api_key=#{API_KEY}") )
+      show_data = JSON.load( open("http://api.themoviedb.org/3/tv/#{show.api_id}?api_key=#{API_KEY}") )
       show.update(  in_production: show_data["in_production"] );
 
       index = 0
 
       show_data["seasons"].each_with_index do |s|
         if s["season_number"] > 0
-          season_data = JSON.load( open("http://api.themoviedb.org/3/tv/#{show.id}/season/#{s['season_number']}?api_key=#{API_KEY}") )
+          season_data = JSON.load( open("http://api.themoviedb.org/3/tv/#{show.api_id}/season/#{s['season_number']}?api_key=#{API_KEY}") )
           season_data["episodes"].each do |e|
             if show.episodes[index]
               puts "updating s#{s['season_number']} e#{e['episode_number']}"

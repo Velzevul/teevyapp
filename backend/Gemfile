@@ -9,12 +9,9 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'authlogic'
 gem 'therubyracer', platforms: :ruby
 gem 'unicorn'
+gem 'whenever'
 
-group :test do
-  gem 'sqlite3'
-end
-
-group :development do
+group :test, :development do
   gem 'sqlite3'
 end
 
